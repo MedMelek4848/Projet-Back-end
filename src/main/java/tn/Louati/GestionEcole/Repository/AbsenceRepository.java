@@ -16,11 +16,11 @@ import tn.Louati.GestionEcole.model.Absence;
 import tn.Louati.GestionEcole.model.Eleve1;
 @Repository
 public interface AbsenceRepository extends JpaRepository<Absence, Long>{
-	@Query("SELECT a FROM Absence a WHERE a.matiere.idmatiere = :matiereId")
+	/* @Query("SELECT a FROM Absence a WHERE a.matiere.idmatiere = :matiereId")
 	List<Absence> findBymatiere(@Param("matiereId") Long matiereId);
 	
 	
-	/* @Modifying
+@Modifying
 	    @Transactional
 	    @Query(value = "INSERT INTO Absence(date_absence,eleve_id, idmatiere) VALUES (:date, :idEleve ,:idMatiere)")
 	    void createAbsenceByeleveAndmatiere(@Param("date") Date date, @Param("idEleve") Long idEleve , @Param("idMatiere") Long idMatiere);

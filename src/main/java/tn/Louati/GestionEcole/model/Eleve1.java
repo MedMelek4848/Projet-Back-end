@@ -1,6 +1,7 @@
 package tn.Louati.GestionEcole.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,9 +50,9 @@ public class Eleve1 implements Serializable {
 	@JoinColumn(name = "groupe_id")
 	private Groupe groupe;
 	
-	  @OneToMany(mappedBy = "eleve", cascade = CascadeType.ALL)
-	    private List<Absence> absences;
-	
+	 @OneToMany(mappedBy = "eleve", cascade = CascadeType.ALL, orphanRemoval = true)
+	    private List<Absence> absences = new ArrayList<>();
+
 	public Eleve1() {
 	}
 
@@ -161,16 +162,24 @@ public class Eleve1 implements Serializable {
  
 
 	public List<Absence> getAbsences() {
-		return absences;
-	}
+        return absences;
+    }
 
-	public void setAbsences(List<Absence> absences) {
-		this.absences = absences;
-	}
+    public void setAbsences(List<Absence> absences) {
+        this.absences = absences;
+    }
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public void ajouterAbsences(Matiere matiere, Date dateAbsence) {
+	    Absence absence = new Absence();
+	    absence.setDateAbsence(dateAbsence);
+	    absence.setMatiere(matiere);
+	    absence.setEleve(this);
+	    absences.add(absence);
+	}
+
 
 	@Override
 	public String toString() {

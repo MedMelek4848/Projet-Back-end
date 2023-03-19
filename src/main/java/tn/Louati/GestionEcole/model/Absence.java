@@ -3,6 +3,7 @@ package tn.Louati.GestionEcole.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -24,20 +25,23 @@ public class Absence implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAbsence;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "eleve_id")
     private Eleve1 eleve;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idmatiere")
+    @JoinColumn(name = "matiere_id")
     private Matiere matiere;
 
     @Column(name = "date_absence")
-    private LocalDate dateAbsence;
+    private Date dateAbsence;
 
+    
+ 
+    
     public Absence() {}
 
-    public Absence(Eleve1 eleve, Matiere matiere, LocalDate dateAbsence) {
+    public Absence(Eleve1 eleve, Matiere matiere, Date dateAbsence) {
         this.eleve = eleve;
         this.matiere = matiere;
         this.dateAbsence = dateAbsence;
@@ -67,11 +71,11 @@ public class Absence implements Serializable{
 		this.matiere = matiere;
 	}
 
-	public LocalDate getDateAbsence() {
+	public Date getDateAbsence() {
 		return dateAbsence;
 	}
 
-	public void setDateAbsence(LocalDate dateAbsence) {
+	public void setDateAbsence(Date dateAbsence) {
 		this.dateAbsence = dateAbsence;
 	}
 

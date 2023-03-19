@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,17 +20,39 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.Louati.GestionEcole.Repository.MatiereRepository;
 import tn.Louati.GestionEcole.Service.AbsenceService;
 import tn.Louati.GestionEcole.model.Absence;
+import tn.Louati.GestionEcole.model.Eleve1;
+import tn.Louati.GestionEcole.model.Matiere;
 @RestController
 @EnableAutoConfiguration
-@RequestMapping(value = "/api/absence")
+@RequestMapping(value = "/api")
 public class AbsenceController {
     
     @Autowired
     private AbsenceService absenceService;
     
-    @PostMapping
+	@Autowired
+	private MatiereRepository matiereRepository;
+
+    
+    
+    @PostMapping("/eleves/{id}/absences")
+    public Eleve1 ajouterAbsences(@PathVariable(value = "id") Long idEleve,
+                                 @RequestParam(value = "matiereId") Long idMatiere,
+                                 @RequestParam(value = "dateAbsence") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateAbsence) {
+        Optional<Matiere> optionalMatiere = matiereRepository.findById(idMatiere);
+        if (optionalMatiere.isPresent()) {
+            Matiere matiere = optionalMatiere.get();
+            return absenceService.ajouterAbsences(idEleve, matiere, dateAbsence);
+        } else {
+            return null;
+        }
+    }
+
+    
+   /* @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Absence> addAbsence(@RequestBody Absence absence) {
     	System.out.println(absence);
@@ -37,7 +60,7 @@ public class AbsenceController {
         
         return ResponseEntity.ok(createdAbsence);
         
-    }
+    }*/
     
 /*
     @PostMapping
@@ -45,12 +68,12 @@ public class AbsenceController {
     	absenceService.createAbsenceByeleveAndmatiere(date, idEleve, idMatiere);
         return ResponseEntity.ok().build();
     }
-   */ 
+   */ /*
     @GetMapping("/matieres/{matiereId}")
     public ResponseEntity<List<Absence>> getAbsencesByMatiereId(@PathVariable Long matiereId) {
         List<Absence> absences = absenceService.getAbsencesByMatiereId(matiereId);
         return ResponseEntity.ok(absences);
-    }
+    }*/
     
     /*@GetMapping("/eleves/{eleveId}")
     public ResponseEntity<List<Absence>> getAbsencesByEleveId(@PathVariable Long eleveId) {

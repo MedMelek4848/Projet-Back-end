@@ -1,6 +1,7 @@
 package tn.Louati.GestionEcole.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.*;
 
@@ -24,8 +25,9 @@ public class Matiere implements Serializable {
 	@Column(name = "nom", nullable = false)
 	private String nom;
 	
-	 @OneToMany(mappedBy = "matiere", cascade = CascadeType.ALL)
-	    private List<Absence> absences;
+	 @OneToMany(mappedBy = "matiere", cascade = CascadeType.ALL, orphanRemoval = true)
+	    private List<Absence> absences = new ArrayList<>();
+
 
 	public Matiere() {
 
@@ -47,13 +49,23 @@ public class Matiere implements Serializable {
 		this.nom = nom;
 	}
 
-	public List<Absence> getAbsences() {
-		return absences;
-	}
+	 public List<Absence> getAbsences() {
+	        return absences;
+	    }
 
-	public void setAbsences(List<Absence> absences) {
-		this.absences = absences;
-	}
+	    public void setAbsences(List<Absence> absences) {
+	        this.absences = absences;
+	    }
+	    // méthodes pour ajouter/retirer des absences
+	    public void addAbsence(Absence absence) {
+	        absences.add(absence);
+	        absence.setMatiere(this);
+	    }
+
+	    public void removeAbsence(Absence absence) {
+	        absences.remove(absence);
+	        absence.setMatiere(null);
+	    }
 
 	@Override
 	public String toString() {
