@@ -3,6 +3,9 @@ package tn.Louati.GestionEcole.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 
@@ -22,6 +25,8 @@ public class Groupe implements Serializable {
 	private Long idGroupe;
 	@Column(name="nom")
 	private String nom;
+	
+	@JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER,mappedBy = "groupe")
 	private List<Eleve1> eleves= new ArrayList<Eleve1>();
 	public Groupe() {

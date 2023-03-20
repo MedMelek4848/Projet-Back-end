@@ -19,6 +19,12 @@ public class Eleve1 implements Serializable {
 		 * 
 		 */
 	private static final long serialVersionUID = 1L;
+ 
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long ideleve;
@@ -44,13 +50,11 @@ public class Eleve1 implements Serializable {
 	private int typePaiement;
 	@Column(name = "matricule")
 	private String matricule;
-	@JsonBackReference
-	@ManyToOne(fetch = FetchType.EAGER)
+	
+	
+	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinColumn(name = "groupe_id")
 	private Groupe groupe;
-	
-	  @OneToMany(mappedBy = "eleve", cascade = CascadeType.ALL)
-	    private List<Absence> absences;
 	
 	public Eleve1() {
 	}
@@ -158,39 +162,8 @@ public class Eleve1 implements Serializable {
 	public void setMatricule(String matricule) {
 		this.matricule = matricule;
 	}
- 
 
-	public List<Absence> getAbsences() {
-		return absences;
-	}
 
-	public void setAbsences(List<Absence> absences) {
-		this.absences = absences;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	@Override
-	public String toString() {
-		return "Eleve1 [ideleve=" + ideleve + ", sexe=" + sexe + ", nom=" + nom + ", prenom=" + prenom
-				+ ", dateDeNaissance=" + dateDeNaissance + ", email=" + email + ", adresse=" + adresse + ", telephone="
-				+ telephone + ", ville=" + ville + ", pays=" + pays + ", typePaiement=" + typePaiement + ", matricule="
-				+ matricule + ", groupe=" + groupe + ", absences=" + absences + ", getIdeleve()=" + getIdeleve()
-				+ ", getGroupe()=" + getGroupe() + ", getSexe()=" + getSexe() + ", getNom()=" + getNom()
-				+ ", getPrenom()=" + getPrenom() + ", getDateDeNaissance()=" + getDateDeNaissance() + ", getEmail()="
-				+ getEmail() + ", getAdresse()=" + getAdresse() + ", getTelephone()=" + getTelephone() + ", getVille()="
-				+ getVille() + ", getPays()=" + getPays() + ", getTypePaiement()=" + getTypePaiement()
-				+ ", getMatricule()=" + getMatricule() + ", getAbsences()=" + getAbsences() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
-	}
-
- 
 	
-
-
-
-
 
 }

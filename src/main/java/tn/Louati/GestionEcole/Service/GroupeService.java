@@ -28,6 +28,9 @@ public class GroupeService {
 	public void deleteGroupe(Long GroupeId) {
 		groupeRepository.deleteById(GroupeId);
 	}
+	public Groupe getGroupeById(Long idGroupe) {
+		return groupeRepository.findById(idGroupe).get();
+	}
 	public List<Eleve1> getAllElevesByGroupeId(Long id) {
 	    Optional<Groupe> optionalGroupe = groupeRepository.findById(id);
 	    if (optionalGroupe.isPresent()) {

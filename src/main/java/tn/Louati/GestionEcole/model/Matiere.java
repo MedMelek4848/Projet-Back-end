@@ -1,18 +1,21 @@
 package tn.Louati.GestionEcole.model;
 
 import java.io.Serializable;
-import java.util.List;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "matiere")
-public class Matiere implements Serializable {
-
-	/**
-	 * 
-	 */
+public class Matiere implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -20,16 +23,9 @@ public class Matiere implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idmatiere;
-
-	@Column(name = "nom", nullable = false)
-	private String nom;
 	
-	 @OneToMany(mappedBy = "matiere", cascade = CascadeType.ALL)
-	    private List<Absence> absences;
-
-	public Matiere() {
-
-	}
+	@Column(name="nom")
+	private String nom;
 
 	public Long getIdmatiere() {
 		return idmatiere;
@@ -47,19 +43,11 @@ public class Matiere implements Serializable {
 		this.nom = nom;
 	}
 
-	public List<Absence> getAbsences() {
-		return absences;
-	}
-
-	public void setAbsences(List<Absence> absences) {
-		this.absences = absences;
-	}
-
 	@Override
 	public String toString() {
-		return "Matiere [idmatiere=" + idmatiere + ", nom=" + nom + ", absences=" + absences + ", getIdmatiere()="
-				+ getIdmatiere() + ", getNom()=" + getNom() + ", getAbsences()=" + getAbsences() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+		return "Matiere [idmatiere=" + idmatiere + ", nom=" + nom + "]";
 	}
-
-	}
+	
+	
+	
+}

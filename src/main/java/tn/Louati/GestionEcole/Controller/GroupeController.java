@@ -31,6 +31,10 @@ public class GroupeController {
 	public void deleteGroupe(@PathVariable(value = "id") Long GroupeId) {
 		groupeservice.deleteGroupe(GroupeId);
 	}
+	@GetMapping("/groupe/{id}")
+	public Groupe getGroupeById(@PathVariable(value = "id") Long idGroupe) {
+		return groupeservice.getGroupeById(idGroupe);
+	}
 	@GetMapping("/groupes/{id}/eleves")
 	public ResponseEntity<List<Eleve1>> getAllElevesByGroupeId(@PathVariable Long id) {
 	    List<Eleve1> eleves = groupeservice.getAllElevesByGroupeId(id);

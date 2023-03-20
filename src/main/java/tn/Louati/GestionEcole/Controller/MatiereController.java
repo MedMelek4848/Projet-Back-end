@@ -1,7 +1,9 @@
 package tn.Louati.GestionEcole.Controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,15 +16,21 @@ import tn.Louati.GestionEcole.model.Matiere;
 @RestController
 @RequestMapping(value="/api")
 public class MatiereController {
+	
 	@Autowired
 	MatiereService matiereService;
-	@PostMapping("/matieres")
-	public Matiere addMatiere(@RequestBody Matiere matiere)   {
-		matiereService.addMatiere(matiere);
-		return matiere;
+	
+	@GetMapping("/matiere/{idmatiere}")
+	public Matiere getMatiereById(@PathVariable(value = "idmatiere") Long idmatiere) {
+		return matiereService.getMatiereById(idmatiere);
 	}
-	@DeleteMapping("/matieres/{id}")
-	public void deleteMatiere(@PathVariable(value = "id") Long matiereId) {
-		matiereService.deleteMatiere(matiereId);
+	@GetMapping("/matieres")
+	public ArrayList<Matiere> getAllMatiere() {
+		return  matiereService.getAllMatiere();
+		}
+	@PostMapping("/matiere")
+	public Matiere addMaitere(@RequestBody Matiere matiere) {
+		return matiereService.addMatiere(matiere);
 	}
+
 }
