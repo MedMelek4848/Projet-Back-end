@@ -1,47 +1,44 @@
 package tn.Louati.GestionEcole.model;
 
-
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.*;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "absence")
+
 public class Absence implements Serializable{
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
+	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAbsence;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "eleve_id")
-    private Eleve1 eleve;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idmatiere")
-    private Matiere matiere;
-
-    @Column(name = "date_absence")
-    private LocalDate dateAbsence;
-
-    public Absence() {}
-
-    public Absence(Eleve1 eleve, Matiere matiere, LocalDate dateAbsence) {
-        this.eleve = eleve;
-        this.matiere = matiere;
-        this.dateAbsence = dateAbsence;
-    }
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idAbsence;
+	
+	@Column(name = "dateAbsence")
+	private Date dateAbsence;
+	
+	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
+	@JoinColumn(name = "ideleve")
+	Eleve1 eleve1;
+	
+	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
+	@JoinColumn(name = "idmatiere")
+	Matiere matiere;
 
 	public Long getIdAbsence() {
 		return idAbsence;
@@ -51,12 +48,20 @@ public class Absence implements Serializable{
 		this.idAbsence = idAbsence;
 	}
 
-	public Eleve1 getEleve() {
-		return eleve;
+	public Date getDateAbsence() {
+		return dateAbsence;
 	}
 
-	public void setEleve(Eleve1 eleve) {
-		this.eleve = eleve;
+	public void setDateAbsence(Date dateAbsence) {
+		this.dateAbsence = dateAbsence;
+	}
+
+	public Eleve1 getEleve1() {
+		return eleve1;
+	}
+
+	public void setEleve1(Eleve1 eleve1) {
+		this.eleve1 = eleve1;
 	}
 
 	public Matiere getMatiere() {
@@ -67,20 +72,16 @@ public class Absence implements Serializable{
 		this.matiere = matiere;
 	}
 
-	public LocalDate getDateAbsence() {
-		return dateAbsence;
-	}
-
-	public void setDateAbsence(LocalDate dateAbsence) {
-		this.dateAbsence = dateAbsence;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
 	public String toString() {
-		return "Absence [idAbsence=" + idAbsence + ", eleve=" + eleve + ", matiere=" + matiere + ", dateAbsence="
-				+ dateAbsence + ", getIdAbsence()=" + getIdAbsence() + ", getEleve()=" + getEleve() + ", getMatiere()="
-				+ getMatiere() + ", getDateAbsence()=" + getDateAbsence() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+		return "Absence [idAbsence=" + idAbsence + ", dateAbsence=" + dateAbsence + ", eleve1=" + eleve1 + ", matiere="
+				+ matiere + "]";
 	}
+	
+	
 	
 }
