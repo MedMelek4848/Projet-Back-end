@@ -16,12 +16,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
 
-@Table(name="user")
 @Entity
-@MappedSuperclass
+@Table(name="User")
+
 public class User implements Serializable{
 	
 		
@@ -39,13 +38,13 @@ public class User implements Serializable{
 
     @Column(nullable = false)
     private String password;
-/*
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-*/
+
     public User() {
     }
 

@@ -26,10 +26,10 @@ public class Role {
 
 	    private String roleName;
 
-/*	    // Un rôle peut avoir plusieurs utilisateurs
+	    // Un rôle peut avoir plusieurs utilisateurs
 	    @ManyToMany(mappedBy = "roles")
 	    private Set<User> users = new HashSet<User>();
-*/
+
 	    public Role() {
 	    }
 
