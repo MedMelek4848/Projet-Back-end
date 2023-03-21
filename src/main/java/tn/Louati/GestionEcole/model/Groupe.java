@@ -23,6 +23,7 @@ public class Groupe implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idGroupe;
+	
 	@Column(name="nom")
 	private String nom;
 	

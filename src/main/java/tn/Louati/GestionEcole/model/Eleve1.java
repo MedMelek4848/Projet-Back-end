@@ -9,25 +9,23 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "eleve1")
 
-public class Eleve1 implements Serializable {
+public class Eleve1 extends User{
 
 	/**
 		 * 
 		 */
-	private static final long serialVersionUID = 1L;
- 
+	/*private static final long serialVersionUID = 1L;
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
+	}*/
 
-	@Id
+	/*@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long ideleve;
+	private Long ideleve;*/
 	@Column(name = "sexe")
 	private String sexe;
 	@Column(name = "nom")
@@ -50,13 +48,14 @@ public class Eleve1 implements Serializable {
 	private int typePaiement;
 	@Column(name = "matricule")
 	private String matricule;
-	
-	
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "groupe_id")
 	private Groupe groupe;
+
 	
 	public Eleve1() {
+		super();
 	}
 
 	public Long getIdeleve() {
@@ -162,8 +161,5 @@ public class Eleve1 implements Serializable {
 	public void setMatricule(String matricule) {
 		this.matricule = matricule;
 	}
-
-
-	
 
 }

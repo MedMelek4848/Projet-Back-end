@@ -1,7 +1,9 @@
 package tn.Louati.GestionEcole.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,37 +19,50 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="Role")
 public class Role {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
-	private Long idRole;
-	@Column
-	private String namerole;
+	
+	    @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long id;
 
-   
-   
+	    private String roleName;
+
+/*	    // Un rôle peut avoir plusieurs utilisateurs
+	    @ManyToMany(mappedBy = "roles")
+	    private Set<User> users = new HashSet<User>();
+*/
+	    public Role() {
+	    }
+
+	    public Role(String roleName) {
+	        this.roleName = roleName;
+	    }
+
+	    // Les getters et setters
+
+	    public Long getId() {
+	        return id;
+	    }
+
+	    public void setId(Long id) {
+	        this.id = id;
+	    }
+
+	    public String getRoleName() {
+	        return roleName;
+	    }
+
+	    public void setRoleName(String roleName) {
+	        this.roleName = roleName;
+	    }
+
+	    public Set<User> getUsers() {
+	        return users;
+	    }
+
+	    public void setUsers(Set<User> users) {
+	        this.users = users;
+	    }
 	
 
-@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "idRole"), inverseJoinColumns = @JoinColumn(name = "idUser"))
-	private List<User> users=new ArrayList<>();
-	public List<User> getUsers() {
-	return users;
-}
-public void setUsers(List<User> users) {
-	this.users = users;
-}
-	public Long getIdRole() {
-		return idRole;
-	}
-	public void setIdRole(Long idRole) {
-		this.idRole = idRole;
-	}
-	public String getNamerole() {
-		return namerole;
-	}
-	public void setNamerole(String namerole) {
-		this.namerole = namerole;
-	}
 	
 }
