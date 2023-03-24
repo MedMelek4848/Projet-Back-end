@@ -40,6 +40,7 @@ public class GroupeService {
 	        throw new EntityNotFoundException("Groupe with id " + id + " not found");
 	    }
 	}
+	
 
 	public Groupe ajouterEleve(Long idGroupe, Eleve1 eleve) {
         Optional<Groupe> optionalGroupe = groupeRepository.findById(idGroupe);

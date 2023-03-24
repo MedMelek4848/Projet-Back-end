@@ -1,18 +1,14 @@
 package tn.Louati.GestionEcole.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -22,11 +18,11 @@ public class Role {
 	
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Long id;
+	    private Long idrole;
 
 	    private String roleName;
 
-	    // Un rôle peut avoir plusieurs utilisateurs
+	    @JsonBackReference
 	    @ManyToMany(mappedBy = "roles")
 	    private Set<User> users = new HashSet<User>();
 
@@ -39,19 +35,21 @@ public class Role {
 
 	    // Les getters et setters
 
-	    public Long getId() {
-	        return id;
-	    }
-
-	    public void setId(Long id) {
-	        this.id = id;
-	    }
+	 
 
 	    public String getRoleName() {
 	        return roleName;
 	    }
 
-	    public void setRoleName(String roleName) {
+	    public Long getIdrole() {
+			return idrole;
+		}
+
+		public void setIdrole(Long idrole) {
+			this.idrole = idrole;
+		}
+
+		public void setRoleName(String roleName) {
 	        this.roleName = roleName;
 	    }
 

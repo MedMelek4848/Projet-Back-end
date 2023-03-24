@@ -1,12 +1,9 @@
 package tn.Louati.GestionEcole.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Entity;
@@ -35,25 +32,31 @@ public class User implements Serializable{
 
     @Column(nullable = false)
     private String username;
+    
+    @Column(nullable = false)
+    private String email;
 
     @Column(nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+            joinColumns = @JoinColumn(name = "iduser"),
+            inverseJoinColumns = @JoinColumn(name = "idrole"))
     private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+     public User(Long iduser, String username, String email, String password, Set<Role> roles) {
+		super();
+		this.iduser = iduser;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+	}
 
-     public Long getIduser() {
+	public Long getIduser() {
 		return iduser;
 	}
 
@@ -81,7 +84,15 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
+    public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Set<Role> getRoles() {
         return roles;
     }
 
