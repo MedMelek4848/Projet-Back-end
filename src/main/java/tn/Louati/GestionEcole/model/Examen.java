@@ -3,13 +3,15 @@ package tn.Louati.GestionEcole.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,12 +19,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "examen")
-public class Examen implements Serializable{
+public class Examen implements Serializable {
 
 	/**
 	 * 
@@ -36,33 +36,40 @@ public class Examen implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idexamen;
-
-	@ManyToOne
-	@JoinColumn(name = "matiere_id")
+	
+	/*@JsonBackReference
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "idmatiere")
 	private Matiere matiere;
-
-	@ManyToOne
-	@JoinColumn(name = "groupe_id")
-	private Groupe groupe;
-	@Column(name = "numero")
-	private String numero;
-	@Column(name = "pourcentage")
-	private Integer pourcentage;   
-	@OneToMany(mappedBy = "examen", cascade = CascadeType.ALL)
-    private List<Note> notes = new ArrayList<>();
-	@Column(name = "valide")
-	private boolean valide;
-	@Temporal(TemporalType.TIMESTAMP)
+	
+	
+	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
+	@JoinColumn(name = "ideleve")
+	Eleve1 eleve1; */
+	
+	
+	@Column(name="pourcentage")
+	private double pourcentage;
+	@Column(name="date")
 	private Date date;
-	@Column(name = "duree")
-	private String duree;
+	@Column(name="duree")
+	private int duree; // en minutes
+	@Column(name="coefficient")
+	private double coefficient;
+	@Column(name="note")
+	private double note;
 
-	public Examen() {
+	// Getters and Setters
 
+	public Long getIdexamen() {
+		return idexamen;
 	}
 
+	public void setIdexamen(Long idExamen) {
+		this.idexamen = idExamen;
+	}
 	
-
+	/*@JsonManagedReference(value="examen-matiere")
 	public Matiere getMatiere() {
 		return matiere;
 	}
@@ -71,54 +78,21 @@ public class Examen implements Serializable{
 		this.matiere = matiere;
 	}
 
-	public Groupe getGroupe() {
-		return groupe;
+	@JsonManagedReference(value="examen-eleve1")
+	public Eleve1 getEleve1() {
+		return eleve1;
 	}
 
-	public void setGroupe(Groupe groupe) {
-		this.groupe = groupe;
-	}
+	public void setEleve1(Eleve1 eleve1) {
+		this.eleve1 = eleve1;
+	}*/
 
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public Integer getPourcentage() {
+	public double getPourcentage() {
 		return pourcentage;
 	}
 
-	public void setPourcentage(Integer pourcentage) {
+	public void setPourcentage(double pourcentage) {
 		this.pourcentage = pourcentage;
-	}
-
- 
-
-	public Long getIdexamen() {
-		return idexamen;
-	}
-
-	public void setIdexamen(Long idexamen) {
-		this.idexamen = idexamen;
-	}
-
-	public List<Note> getNotes() {
-		return notes;
-	}
-
-	public void setNotes(List<Note> notes) {
-		this.notes = notes;
-	}
-
-	public boolean isValide() {
-		return valide;
-	}
-
-	public void setValide(boolean valide) {
-		this.valide = valide;
 	}
 
 	public Date getDate() {
@@ -129,11 +103,27 @@ public class Examen implements Serializable{
 		this.date = date;
 	}
 
-	public String getDuree() {
+	public int getDuree() {
 		return duree;
 	}
 
-	public void setDuree(String duree) {
+	public void setDuree(int duree) {
 		this.duree = duree;
+	}
+
+	public double getCoefficient() {
+		return coefficient;
+	}
+
+	public void setCoefficient(double coefficient) {
+		this.coefficient = coefficient;
+	}
+
+	public double getNote() {
+		return note;
+	}
+
+	public void setNote(double note) {
+		this.note = note;
 	}
 }

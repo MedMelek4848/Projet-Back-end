@@ -30,7 +30,7 @@ public class Matiere implements Serializable {
 
 	@Column(name = "nom")
 	private String nom;
-
+	
 	@JsonBackReference
 	@ManyToMany(mappedBy = "matieres")
 	private Set<Professeur> professeurs = new HashSet<Professeur>();
@@ -55,6 +55,7 @@ public class Matiere implements Serializable {
 	public Set<Professeur> getProfesseurs() {
 		return professeurs;
 	}
+	
 
 	public void setProfesseurs(Set<Professeur> professeurs) {
 		this.professeurs = professeurs;

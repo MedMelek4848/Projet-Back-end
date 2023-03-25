@@ -1,11 +1,9 @@
-package tn.Louati.GestionEcole.Controller;
+/*package tn.Louati.GestionEcole.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,60 +12,60 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.Louati.GestionEcole.Service.ExamenService;
-import tn.Louati.GestionEcole.Service.MatiereService;
 import tn.Louati.GestionEcole.model.Examen;
-import tn.Louati.GestionEcole.model.Matiere;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(value="/api")
 public class ExamenController {
 
     @Autowired
     private ExamenService examenService;
     
-    @Autowired
-    private MatiereService matiereService;
-
-    
-    @PostMapping("/examens")
-	public Examen addExamen(@RequestBody Examen examen)   {
-    	examenService.addExamen(examen);
-		return examen;
+    @GetMapping("/examens")
+	public List<Examen> getAllExamen() {
+		return examenService.getAllExamen();
 	}
 	
-    
-    
-    // Récupérer tous les examens d'une matière
-    @GetMapping("examens/matieres/{matiereId}")
-    public ResponseEntity<List<Examen>> getExamensByMatiereId(@PathVariable Long matiereId) {
-        List<Examen> examens = examenService.getExamensByMatiereId(matiereId);
-        if (examens.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(examens, HttpStatus.OK);
-    }
-
-    // Récupérer un examen par son identifiant
-    @GetMapping("examen/{examenId}")
-    public ResponseEntity<Examen> getExamenById(@PathVariable Long examenId) {
-        Optional<Examen> examen = examenService.getExamenById(examenId);
-        if (examen.isPresent()) {
-            return new ResponseEntity<>(examen.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    // Ajouter un examen à une matière
-    @PostMapping("examens/matieres/{matiereId}")
-    public ResponseEntity<Examen> ajouterExamenAMatiere(@PathVariable Long idmatiere, @RequestBody Examen examen) {
-    	Matiere matiere = matiereService.getMatiereById(idmatiere);
-    	if (matiere != null) {
-    	    Examen examenAjoute = examenService.ajouterExamenAMatiere(examen, matiere);
-    	    return new ResponseEntity<>(examenAjoute, HttpStatus.CREATED);
-    	} else {
-    	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
-    }
-
-}
+	@PostMapping("/examen")
+	public Examen addExamen(@RequestBody Examen examen) {
+		return examenService.addExamen(examen);
+	}
+	@GetMapping("/examen/eleve/{ideleve}")
+	public List<Examen> getAllExamenByIdElever(@PathVariable("ideleve") Long ideleve) {
+		List<Examen> examens = examenService.getAllExamen();
+		List<Examen> examenById = new ArrayList<Examen>();
+		for (int i = 0; i < examens.size(); i++) {
+			if (examens.get(i).getEleve1() != null &&examens.get(i).getEleve1().getIdeleve() == ideleve) {
+				examenById.add(examens.get(i));
+			}
+		}
+		return examenById;
+	}
+	
+	
+	@GetMapping("/examen/matiere/{idmatiere}")
+	public List<Examen> getAllExamenByIdMatiere(@PathVariable("idmatiere") Long idmatiere) {
+		List<Examen> examens = examenService.getAllExamen();
+		List<Examen> examenById = new ArrayList<Examen>();
+		for (int i = 0; i < examens.size(); i++) {
+			if (examens.get(i).getMatiere() != null &&examens.get(i).getMatiere().getIdmatiere() == idmatiere) {
+				examenById.add(examens.get(i));
+			}
+		}
+		return examenById;
+	}
+	
+	@GetMapping("/examen/{idmatiere}/{idgroupe}")
+	public List<Examen> getAllExamenByIdMatiereAndIdEleve(@PathVariable("idmatiere") Long idmatiere,@PathVariable("ideleve") Long ideleve) {
+		List<Examen> examens = examenService.getAllExamen();
+		List<Examen> examenById = new ArrayList<Examen>();
+		for (int i = 0; i < examens.size(); i++) {
+			if (examens.get(i).getMatiere() != null &&examens.get(i).getMatiere().getIdmatiere() == idmatiere) {
+				if (examens.get(i).getEleve1() != null &&examens.get(i).getEleve1().getIdeleve() == ideleve) {
+					examenById.add(examens.get(i));
+				}
+			}
+		}
+		return examenById;
+	}
+}*/
