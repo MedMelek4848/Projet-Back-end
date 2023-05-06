@@ -1,0 +1,65 @@
+{
+  "changelogDate": "20230504233134",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "matricule",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prenom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adress",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ville",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pays",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "telephone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateDeNaissance",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "genre",
+      "fieldType": "Egenre",
+      "fieldValues": "HOMME,FEMME"
+    },
+    {
+      "fieldName": "typeDePaiement",
+      "fieldType": "typeDePaiement",
+      "fieldValues": "CHEQUE,ESPECE,TRAITE"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "Eleve",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "nomClasse",
+      "otherEntityName": "classe",
+      "relationshipName": "appartientA",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

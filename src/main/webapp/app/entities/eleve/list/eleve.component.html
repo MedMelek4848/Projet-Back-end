@@ -1,0 +1,164 @@
+<div>
+  <h2 id="page-heading" data-cy="EleveHeading">
+    <h2 class="text-center mb-0" style="font-weight:bold; text-decoration:underline;">Liste des élèves</h2>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-eleve"
+        [routerLink]="['/eleve/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer une nouvelle élève </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="eleves?.length === 0">
+    <span>Aucun élève trouvé</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="eleves && eleves.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="matricule">
+            <div class="d-flex">
+              <span>Matricule</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nom">
+            <div class="d-flex">
+              <span>Nom</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="prenom">
+            <div class="d-flex">
+              <span>Prenom</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="adress">
+            <div class="d-flex">
+              <span>Adress</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="ville">
+            <div class="d-flex">
+              <span>Ville</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="pays">
+            <div class="d-flex">
+              <span>Pays</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="telephone">
+            <div class="d-flex">
+              <span>Telephone</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="email">
+            <div class="d-flex">
+              <span>Email</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="dateDeNaissance">
+            <div class="d-flex">
+              <span>Date De Naissance</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="genre">
+            <div class="d-flex">
+              <span>Genre</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="typeDePaiement">
+            <div class="d-flex">
+              <span>Type De Paiement</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="appartientA.nomClasse">
+            <div class="d-flex">
+              <span>Appartient A</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
+        <tr *ngFor="let eleve of eleves; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/eleve', eleve.id, 'view']">{{ eleve.id }}</a>
+          </td>
+          <td>{{ eleve.matricule }}</td>
+          <td>{{ eleve.nom }}</td>
+          <td>{{ eleve.prenom }}</td>
+          <td>{{ eleve.adress }}</td>
+          <td>{{ eleve.ville }}</td>
+          <td>{{ eleve.pays }}</td>
+          <td>{{ eleve.telephone }}</td>
+          <td>{{ eleve.email }}</td>
+          <td>{{ eleve.dateDeNaissance | formatMediumDate }}</td>
+          <td>{{ eleve.genre }}</td>
+          <td>{{ eleve.typeDePaiement }}</td>
+          <td>
+            <div *ngIf="eleve.appartientA">
+              <a [routerLink]="['/classe', eleve.appartientA.id, 'view']">{{ eleve.appartientA.nomClasse }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/eleve', eleve.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/eleve', eleve.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(eleve)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

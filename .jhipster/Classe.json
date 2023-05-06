@@ -1,0 +1,20 @@
+{
+  "changelogDate": "20230504232549",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "nomClasse",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nombreEleves",
+      "fieldType": "Integer"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "Classe",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

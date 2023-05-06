@@ -1,0 +1,128 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-eleve-heading" data-cy="EleveCreateUpdateHeading" class="text-center mb-0" style="font-weight:bold; text-decoration:underline;">Créer ou modifier un élève</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_matricule">Matricule</label>
+          <input type="text" class="form-control" name="matricule" id="field_matricule" data-cy="matricule" formControlName="matricule" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_prenom">Prenom</label>
+          <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom" formControlName="prenom" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_adress">Adress</label>
+          <input type="text" class="form-control" name="adress" id="field_adress" data-cy="adress" formControlName="adress" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ville">Ville</label>
+          <input type="text" class="form-control" name="ville" id="field_ville" data-cy="ville" formControlName="ville" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_pays">Pays</label>
+          <input type="text" class="form-control" name="pays" id="field_pays" data-cy="pays" formControlName="pays" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_telephone">Telephone</label>
+          <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone" formControlName="telephone" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_dateDeNaissance">Date De Naissance</label>
+          <div class="input-group">
+            <input
+              id="field_dateDeNaissance"
+              data-cy="dateDeNaissance"
+              type="text"
+              class="form-control"
+              name="dateDeNaissance"
+              ngbDatepicker
+              #dateDeNaissanceDp="ngbDatepicker"
+              formControlName="dateDeNaissance"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateDeNaissanceDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_genre">Genre</label>
+          <select class="form-control" name="genre" formControlName="genre" id="field_genre" data-cy="genre">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let egenre of egenreValues" [value]="egenre">{{ egenre }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_typeDePaiement">Type De Paiement</label>
+          <select
+            class="form-control"
+            name="typeDePaiement"
+            formControlName="typeDePaiement"
+            id="field_typeDePaiement"
+            data-cy="typeDePaiement"
+          >
+            <option [ngValue]="null"></option>
+            <option *ngFor="let typeDePaiement of typeDePaiementValues" [value]="typeDePaiement">{{ typeDePaiement }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_appartientA">Appartient A</label>
+          <select
+            class="form-control"
+            id="field_appartientA"
+            data-cy="appartientA"
+            name="appartientA"
+            formControlName="appartientA"
+            [compareWith]="compareClasse"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="classeOption" *ngFor="let classeOption of classesSharedCollection">{{ classeOption.nomClasse }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
