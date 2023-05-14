@@ -1,0 +1,33 @@
+{
+  "changelogDate": "20230506214104",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "noteExam",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "remarque",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "Note",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "matricule",
+      "otherEntityName": "eleve",
+      "relationshipName": "matriculeEleve",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nomExamen",
+      "otherEntityName": "examen",
+      "relationshipName": "nomExamen",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

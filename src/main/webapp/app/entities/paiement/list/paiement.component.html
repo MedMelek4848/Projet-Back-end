@@ -1,0 +1,142 @@
+<div>
+  <h2 id="page-heading" data-cy="PaiementHeading" class="d-flex justify-content-between align-items-center">
+    <span>Paiements</span>
+    <div class="d-flex">
+      <form [formGroup]="editForm" (ngSubmit)="searchPaymentsByMatricule()" class="d-flex align-items-center">
+        <div class="input-group">
+          <input type="text" formControlName="matricule" class="form-control" placeholder="Rechercher par matricule">
+          <button type="submit" class="btn btn-primary ms-2">Rechercher</button>
+        </div>
+      </form>
+
+      <div class="ms-2">
+        <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span>Refresh list</span>
+        </button>
+
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-paiement"
+          [routerLink]="['/paiement/new']"
+        >
+          <fa-icon icon="plus"></fa-icon>
+          <span>Create a new Paiement</span>
+        </button>
+      </div>
+    </div>
+  </h2>
+  
+  
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="paiements?.length === 0">
+    <span>No Paiements found</span>
+  </div>
+  <div class="table-responsive table-entities" id="entities" *ngIf="paiements && paiements.length > 0">
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="paiements && paiements.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="modeDePaiement">
+            <div class="d-flex">
+              <span>Mode De Paiement</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="numeroTranche">
+            <div class="d-flex">
+              <span>Numero Tranche</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="typeDePaiement">
+            <div class="d-flex">
+              <span>Type De Paiement</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="montantPaye">
+            <div class="d-flex">
+              <span>Montant Paye</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="matricule.matricule">
+            <div class="d-flex">
+              <span>Matricule</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
+        <tr *ngFor="let paiement of paiements; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/paiement', paiement.id, 'view']">{{ paiement.id }}</a>
+          </td>
+          <td>{{ paiement.modeDePaiement }}</td>
+          <td>{{ paiement.numeroTranche }}</td>
+          <td>{{ paiement.typeDePaiement }}</td>
+          <td>{{ paiement.montantPaye }}</td>
+          <td>
+            <div *ngIf="paiement.matricule">
+              <a [routerLink]="['/eleve', paiement.matricule.id, 'view']">{{ paiement.matricule.matricule }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/paiement', paiement.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/paiement', paiement.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(paiement)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <button (click)="generatePDF()" class="btn btn-primary">Générer PDF</button>
+
+      <h3>Montant payé total : {{ calculateTotalAmountPaid() }}</h3>
+    </div>
+    </div>
+  </div>
+</div>

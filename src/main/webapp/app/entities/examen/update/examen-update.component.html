@@ -1,0 +1,111 @@
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm" class="border p-3">
+      <h2 id="jhi-examen-heading" data-cy="ExamenCreateUpdateHeading" style="text-align: center; font-weight: bold;">Create or edit an Examen</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_numExamen">Num Examen</label>
+          <input type="number" class="form-control" name="numExamen" id="field_numExamen" data-cy="numExamen" formControlName="numExamen" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_pourcentage">Pourcentage</label>
+          <input
+            type="number"
+            class="form-control"
+            name="pourcentage"
+            id="field_pourcentage"
+            data-cy="pourcentage"
+            formControlName="pourcentage"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_valide">Valide</label>
+          <input type="checkbox" class="form-check" name="valide" id="field_valide" data-cy="valide" formControlName="valide" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_dateExamen">Date Examen</label>
+          <div class="input-group">
+            <input
+              id="field_dateExamen"
+              data-cy="dateExamen"
+              type="text"
+              class="form-control"
+              name="dateExamen"
+              ngbDatepicker
+              #dateExamenDp="ngbDatepicker"
+              formControlName="dateExamen"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateExamenDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_duree">Durée</label>
+          <input type="number" class="form-control" name="duree" id="field_duree" data-cy="duree" formControlName="duree" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_nomExamen">Nom Examen</label>
+          <input type="text" class="form-control" name="nomExamen" id="field_nomExamen" data-cy="nomExamen" formControlName="nomExamen" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_nomMatiere">Nom Matiere</label>
+          <select
+            class="form-control"
+            id="field_nomMatiere"
+            data-cy="nomMatiere"
+            name="nomMatiere"
+            formControlName="nomMatiere"
+            [compareWith]="compareMatiere"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="matiereOption" *ngFor="let matiereOption of matieresSharedCollection">{{ matiereOption.nomMatiere }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_nomClasse">Nom Classe</label>
+          <select
+            class="form-control"
+            id="field_nomClasse"
+            data-cy="nomClasse"
+            name="nomClasse"
+            formControlName="nomClasse"
+            [compareWith]="compareClasse"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="classeOption" *ngFor="let classeOption of classesSharedCollection">{{ classeOption.nomClasse }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span style="font-weight: bold;">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span style="font-weight: bold;">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

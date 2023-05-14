@@ -1,0 +1,131 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm" class="border p-3">
+      <h2 id="jhi-professeur-heading" data-cy="ProfesseurCreateUpdateHeading" style="text-align: center; font-weight: bold;">Create or edit a Professeur</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_prenom">Prenom</label>
+          <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom" formControlName="prenom" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_cin">Cin</label>
+          <input type="text" class="form-control" name="cin" id="field_cin" data-cy="cin" formControlName="cin" />
+          <div *ngIf="editForm.get('cin')!.invalid && (editForm.get('cin')!.dirty || editForm.get('cin')!.touched)"></div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_adress">Adress</label>
+          <input type="text" class="form-control" name="adress" id="field_adress" data-cy="adress" formControlName="adress" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ville">Ville</label>
+          <input type="text" class="form-control" name="ville" id="field_ville" data-cy="ville" formControlName="ville" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_pays">Pays</label>
+          <input type="text" class="form-control" name="pays" id="field_pays" data-cy="pays" formControlName="pays" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_telephone">Telephone</label>
+          <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone" formControlName="telephone" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_grade">Grade</label>
+          <input type="text" class="form-control" name="grade" id="field_grade" data-cy="grade" formControlName="grade" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_spetialite">Spetialite</label>
+          <input
+            type="text"
+            class="form-control"
+            name="spetialite"
+            id="field_spetialite"
+            data-cy="spetialite"
+            formControlName="spetialite"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_typeDeContrat">Type De Contrat</label>
+          <select
+            class="form-control"
+            name="typeDeContrat"
+            formControlName="typeDeContrat"
+            id="field_typeDeContrat"
+            data-cy="typeDeContrat"
+          >
+            <option [ngValue]="null"></option>
+            <option *ngFor="let typeContrat of typeContratValues" [value]="typeContrat">{{typeContrat}}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_dateContrat">Date Contrat</label>
+          <div class="input-group">
+            <input
+              id="field_dateContrat"
+              data-cy="dateContrat"
+              type="text"
+              class="form-control"
+              name="dateContrat"
+              ngbDatepicker
+              #dateContratDp="ngbDatepicker"
+              formControlName="dateContrat"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateContratDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_genre">Genre</label>
+          <select class="form-control" name="genre" formControlName="genre" id="field_genre" data-cy="genre">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let typeDeGenre of typeDeGenreValues" [value]="typeDeGenre">{{typeDeGenre}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span style="font-weight: bold;">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary ml-2"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span style="font-weight: bold;">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

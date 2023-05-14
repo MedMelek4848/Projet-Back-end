@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Professeur.
+    -->
+    <changeSet id="20230509230359-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="professeur_id"
+                                 baseTableName="rel_professeur__nom_classe"
+                                 constraintName="fk_rel_professeur__nom_classe__professeur_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="professeur"/>
+
+        <addForeignKeyConstraint baseColumnNames="nom_classe_id"
+                                 baseTableName="rel_professeur__nom_classe"
+                                 constraintName="fk_rel_professeur__nom_classe__nom_classe_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="classe"/>
+
+        <addForeignKeyConstraint baseColumnNames="professeur_id"
+                                 baseTableName="rel_professeur__nom_matiere"
+                                 constraintName="fk_rel_professeur__nom_matiere__professeur_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="professeur"/>
+
+        <addForeignKeyConstraint baseColumnNames="nom_matiere_id"
+                                 baseTableName="rel_professeur__nom_matiere"
+                                 constraintName="fk_rel_professeur__nom_matiere__nom_matiere_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="matiere"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="EleveHeading">
-    <h2 class="text-center mb-0" style="font-weight:bold; text-decoration:underline;">Liste des élèves</h2>
+    <span>Eleves</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Rafraîchir la liste</span>
+        <span>Refresh list</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/eleve/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span> Créer une nouvelle élève </span>
+        <span> Create a new Eleve </span>
       </button>
     </div>
   </h2>
@@ -25,7 +25,7 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="eleves?.length === 0">
-    <span>Aucun élève trouvé</span>
+    <span>No Eleves found</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="eleves && eleves.length > 0">
@@ -98,12 +98,7 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="typeDePaiement">
-            <div class="d-flex">
-              <span>Type De Paiement</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
+          
           <th scope="col" jhiSortBy="appartientA.nomClasse">
             <div class="d-flex">
               <span>Appartient A</span>
@@ -133,7 +128,6 @@
           <td>{{ eleve.email }}</td>
           <td>{{ eleve.dateDeNaissance | formatMediumDate }}</td>
           <td>{{ eleve.genre }}</td>
-          <td>{{ eleve.typeDePaiement }}</td>
           <td>
             <div *ngIf="eleve.appartientA">
               <a [routerLink]="['/classe', eleve.appartientA.id, 'view']">{{ eleve.appartientA.nomClasse }}</a>

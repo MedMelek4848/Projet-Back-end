@@ -1,0 +1,100 @@
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm" class="border p-3">
+      <h2 id="jhi-paiement-heading" data-cy="PaiementCreateUpdateHeading" style="text-align: center; font-weight: bold;">Create or edit a Paiement</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_modeDePaiement">Mode De Paiement</label>
+          <select
+            class="form-control"
+            name="modeDePaiement"
+            formControlName="modeDePaiement"
+            id="field_modeDePaiement"
+            data-cy="modeDePaiement"
+          >
+            <option [ngValue]="null"></option>
+            <option *ngFor="let modes of modesValues" [value]="modes">{{modes}}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_numeroTranche">Numero Tranche</label>
+          <input
+            type="number"
+            class="form-control"
+            name="numeroTranche"
+            id="field_numeroTranche"
+            data-cy="numeroTranche"
+            formControlName="numeroTranche"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_typeDePaiement">Type De Paiement</label>
+          <select
+            class="form-control"
+            name="typeDePaiement"
+            formControlName="typeDePaiement"
+            id="field_typeDePaiement"
+            data-cy="typeDePaiement"
+          >
+            <option [ngValue]="null"></option>
+            <option *ngFor="let payType of payTypeValues" [value]="payType">{{payType}}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_montantPaye">Montant Paye</label>
+          <input
+            type="number"
+            class="form-control"
+            name="montantPaye"
+            id="field_montantPaye"
+            data-cy="montantPaye"
+            formControlName="montantPaye"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_matricule">Matricule</label>
+          <select
+            class="form-control"
+            id="field_matricule"
+            data-cy="matricule"
+            name="matricule"
+            formControlName="matricule"
+            [compareWith]="compareEleve"
+          >
+
+            <option [ngValue]="null"></option>
+            <option [ngValue]="eleveOption" *ngFor="let eleveOption of elevesSharedCollection">{{ eleveOption.matricule }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span style="font-weight: bold;">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span style="font-weight: bold;">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

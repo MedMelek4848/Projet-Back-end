@@ -1,0 +1,67 @@
+{
+  "changelogDate": "20230509230359",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prenom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cin",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique"]
+    },
+    {
+      "fieldName": "adress",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ville",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pays",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "telephone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "grade",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "spetialite",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "typeDeContrat",
+      "fieldType": "typeContrat",
+      "fieldValues": "CDD,CDI"
+    },
+    {
+      "fieldName": "dateContrat",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "genre",
+      "fieldType": "typeDeGenre",
+      "fieldValues": "HOMME,FEMME"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "Professeur",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

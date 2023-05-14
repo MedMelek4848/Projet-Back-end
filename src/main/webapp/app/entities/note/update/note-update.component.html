@@ -1,0 +1,67 @@
+<div class="container border p-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <h2 id="jhi-note-heading" data-cy="NoteCreateUpdateHeading" style="text-align: center; font-weight: bold;">Create or edit a Note</h2>
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="col-lg-2 col-form-label" for="field_id">ID</label>
+          <div class="col-lg-10">
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-lg-2 col-form-label" for="field_noteExam">Note Exam</label>
+          <div class="col-lg-10">
+            <input type="number" class="form-control" name="noteExam" id="field_noteExam" data-cy="noteExam" formControlName="noteExam" />
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-lg-2 col-form-label" for="field_remarque">Remarque</label>
+          <div class="col-lg-10">
+            <input type="text" class="form-control" name="remarque" id="field_remarque" data-cy="remarque" formControlName="remarque" />
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-lg-2 col-form-label" for="field_matriculeEleve">Matricule Eleve</label>
+          <div class="col-lg-10">
+            <select class="form-control" id="field_matriculeEleve" data-cy="matriculeEleve" name="matriculeEleve" formControlName="matriculeEleve" [compareWith]="compareEleve">
+              <option [ngValue]="null"></option>
+              <option [ngValue]="eleveOption" *ngFor="let eleveOption of elevesSharedCollection">{{ eleveOption.matricule }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-lg-2 col-form-label" for="field_nomExamen">Nom Examen</label>
+          <div class="col-lg-10">
+            <select class="form-control" id="field_nomExamen" data-cy="nomExamen" name="nomExamen" formControlName="nomExamen" [compareWith]="compareExamen">
+              <option [ngValue]="null"></option>
+              <option [ngValue]="examenOption" *ngFor="let examenOption of examenSharedCollection">{{ examenOption.nomExamen }}</option>
+            </select>
+          </div>
+        </div>
+
+      <div class="d-grid gap-2">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span style="font-weight: bold;">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span style="font-weight: bold;">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

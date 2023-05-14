@@ -1,0 +1,123 @@
+<div>
+  <h2 id="page-heading" data-cy="CoursHeading">
+    <span>Cours</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-cours"
+        [routerLink]="['/cours/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Cours </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="cours?.length === 0">
+    <span>No Cours found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="cours && cours.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="numeroCours">
+            <div class="d-flex">
+              <span>Numero Cours</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="dateCour">
+            <div class="d-flex">
+              <span>Date Cour</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="enseignerPar.cin">
+            <div class="d-flex">
+              <span>Enseigner Par</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="pourLaClasse.nomClasse">
+            <div class="d-flex">
+              <span>Pour La Classe</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nomMatiere.nomMatiere">
+            <div class="d-flex">
+              <span>Nom Matiere</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
+        <tr *ngFor="let cours of cours; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/cours', cours.id, 'view']">{{ cours.id }}</a>
+          </td>
+          <td>{{ cours.numeroCours }}</td>
+          <td>{{ cours.dateCour | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="cours.enseignerPar">
+              <a [routerLink]="['/professeur', cours.enseignerPar.id, 'view']">{{ cours.enseignerPar.cin }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="cours.pourLaClasse">
+              <a [routerLink]="['/classe', cours.pourLaClasse.id, 'view']">{{ cours.pourLaClasse.nomClasse }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="cours.nomMatiere">
+              <a [routerLink]="['/matiere', cours.nomMatiere.id, 'view']">{{ cours.nomMatiere.nomMatiere }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/cours', cours.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/cours', cours.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(cours)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

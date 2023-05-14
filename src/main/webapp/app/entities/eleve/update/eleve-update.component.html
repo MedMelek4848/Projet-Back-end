@@ -1,48 +1,49 @@
-<div class="d-flex justify-content-center">
-  <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-eleve-heading" data-cy="EleveCreateUpdateHeading" class="text-center mb-0" style="font-weight:bold; text-decoration:underline;">Créer ou modifier un élève</h2>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm" class="border p-4">
+        <h2 id="jhi-eleve-heading" data-cy="EleveCreateUpdateHeading" style="text-align: center; font-weight: bold;">Create or edit a Eleve</h2>
 
-      <div>
-        <jhi-alert-error></jhi-alert-error>
+        <div>
+          <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
+          <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
 
-        <div class="row mb-3">
-          <label class="form-label" for="field_matricule">Matricule</label>
-          <input type="text" class="form-control" name="matricule" id="field_matricule" data-cy="matricule" formControlName="matricule" />
-        </div>
+          <div class="row mb-3">
+            <label class="form-label" for="field_matricule">Matricule</label>
+            <input type="text" class="form-control" name="matricule" id="field_matricule" data-cy="matricule" formControlName="matricule" />
+          </div>
 
-        <div class="row mb-3">
-          <label class="form-label" for="field_nom">Nom</label>
-          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
-        </div>
+          <div class="row mb-3">
+            <label class="form-label" for="field_nom">Nom</label>
+            <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+          </div>
 
-        <div class="row mb-3">
-          <label class="form-label" for="field_prenom">Prenom</label>
-          <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom" formControlName="prenom" />
-        </div>
+          <div class="row mb-3">
+            <label class="form-label" for="field_prenom">Prenom</label>
+            <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom" formControlName="prenom" />
+          </div>
 
-        <div class="row mb-3">
-          <label class="form-label" for="field_adress">Adress</label>
-          <input type="text" class="form-control" name="adress" id="field_adress" data-cy="adress" formControlName="adress" />
-        </div>
+          <div class="row mb-3">
+            <label class="form-label" for="field_adress">Adress</label>
+            <input type="text" class="form-control" name="adress" id="field_adress" data-cy="adress" formControlName="adress" />
+          </div>
 
-        <div class="row mb-3">
-          <label class="form-label" for="field_ville">Ville</label>
-          <input type="text" class="form-control" name="ville" id="field_ville" data-cy="ville" formControlName="ville" />
-        </div>
+          <div class="row mb-3">
+            <label class="form-label" for="field_ville">Ville</label>
+            <input type="text" class="form-control" name="ville" id="field_ville" data-cy="ville" formControlName="ville" />
+          </div>
 
-        <div class="row mb-3">
-          <label class="form-label" for="field_pays">Pays</label>
-          <input type="text" class="form-control" name="pays" id="field_pays" data-cy="pays" formControlName="pays" />
-        </div>
+          <div class="row mb-3">
+            <label class="form-label" for="field_pays">Pays</label>
+            <input type="text" class="form-control" name="pays" id="field_pays" data-cy="pays" formControlName="pays" />
+          </div>
 
-        <div class="row mb-3">
-          <label class="form-label" for="field_telephone">Telephone</label>
+          <div class="row mb-3">
+            <label class="form-label" for="field_telephone">Telephone</label>
           <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone" formControlName="telephone" />
         </div>
 
@@ -74,24 +75,11 @@
           <label class="form-label" for="field_genre">Genre</label>
           <select class="form-control" name="genre" formControlName="genre" id="field_genre" data-cy="genre">
             <option [ngValue]="null"></option>
-            <option *ngFor="let egenre of egenreValues" [value]="egenre">{{ egenre }}</option>
+            <option *ngFor="let egenre of egenreValues" [value]="egenre">{{egenre}}</option>
           </select>
         </div>
 
-        <div class="row mb-3">
-          <label class="form-label" for="field_typeDePaiement">Type De Paiement</label>
-          <select
-            class="form-control"
-            name="typeDePaiement"
-            formControlName="typeDePaiement"
-            id="field_typeDePaiement"
-            data-cy="typeDePaiement"
-          >
-            <option [ngValue]="null"></option>
-            <option *ngFor="let typeDePaiement of typeDePaiementValues" [value]="typeDePaiement">{{ typeDePaiement }}</option>
-          </select>
-        </div>
-
+        
         <div class="row mb-3">
           <label class="form-label" for="field_appartientA">Appartient A</label>
           <select
@@ -108,9 +96,9 @@
         </div>
       </div>
 
-      <div>
+      <div class="d-grid gap-2">
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span style="font-weight: bold;">Cancel</span>
         </button>
 
         <button
@@ -120,7 +108,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span style="font-weight: bold;">Save</span>
         </button>
       </div>
     </form>

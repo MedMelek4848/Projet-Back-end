@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="cours">
+      <h2 data-cy="coursDetailsHeading"><span>Cours</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ cours.id }}</span>
+        </dd>
+        <dt><span>Numero Cours</span></dt>
+        <dd>
+          <span>{{ cours.numeroCours }}</span>
+        </dd>
+        <dt><span>Date Cour</span></dt>
+        <dd>
+          <span>{{ cours.dateCour | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Enseigner Par</span></dt>
+        <dd>
+          <div *ngIf="cours.enseignerPar">
+            <a [routerLink]="['/professeur', cours.enseignerPar.id, 'view']">{{ cours.enseignerPar.cin }}</a>
+          </div>
+        </dd>
+        <dt><span>Pour La Classe</span></dt>
+        <dd>
+          <div *ngIf="cours.pourLaClasse">
+            <a [routerLink]="['/classe', cours.pourLaClasse.id, 'view']">{{ cours.pourLaClasse.nomClasse }}</a>
+          </div>
+        </dd>
+        <dt><span>Nom Matiere</span></dt>
+        <dd>
+          <div *ngIf="cours.nomMatiere">
+            <a [routerLink]="['/matiere', cours.nomMatiere.id, 'view']">{{ cours.nomMatiere.nomMatiere }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/cours', cours.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

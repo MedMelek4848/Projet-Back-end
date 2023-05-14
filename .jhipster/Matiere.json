@@ -1,0 +1,28 @@
+{
+  "changelogDate": "20230506174129",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "nomMatiere",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coefficient",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "nombreHeures",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "nombreExamen",
+      "fieldType": "Integer"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "Matiere",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -1,0 +1,50 @@
+{
+  "changelogDate": "20230506181735",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "numExamen",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "pourcentage",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "valide",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "dateExamen",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "duree",
+      "fieldType": "Integer",
+      "fieldValidateRules": []
+    },
+    {
+      "fieldName": "nomExamen",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "Examen",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "nomMatiere",
+      "otherEntityName": "matiere",
+      "relationshipName": "nomMatiere",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nomClasse",
+      "otherEntityName": "classe",
+      "relationshipName": "nomClasse",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

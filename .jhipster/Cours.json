@@ -1,0 +1,39 @@
+{
+  "changelogDate": "20230510005835",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "numeroCours",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "dateCour",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "Cours",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "cin",
+      "otherEntityName": "professeur",
+      "relationshipName": "enseignerPar",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nomClasse",
+      "otherEntityName": "classe",
+      "relationshipName": "pourLaClasse",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nomMatiere",
+      "otherEntityName": "matiere",
+      "relationshipName": "nomMatiere",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}
