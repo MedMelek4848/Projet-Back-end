@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -11,6 +11,8 @@ import { IEleve } from 'app/entities/eleve/eleve.model';
 import { EleveService } from 'app/entities/eleve/service/eleve.service';
 import { IExamen } from 'app/entities/examen/examen.model';
 import { ExamenService } from 'app/entities/examen/service/examen.service';
+import axios from 'axios';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'jhi-note-update',
@@ -23,6 +25,7 @@ export class NoteUpdateComponent implements OnInit {
   elevesSharedCollection: IEleve[] = [];
   examenSharedCollection: IExamen[] = [];
 
+
   editForm: NoteFormGroup = this.noteFormService.createNoteFormGroup();
 
   constructor(
@@ -30,8 +33,10 @@ export class NoteUpdateComponent implements OnInit {
     protected noteFormService: NoteFormService,
     protected eleveService: EleveService,
     protected examenService: ExamenService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
   ) {}
+
+  
 
   compareEleve = (o1: IEleve | null, o2: IEleve | null): boolean => this.eleveService.compareEleve(o1, o2);
 
@@ -48,11 +53,13 @@ export class NoteUpdateComponent implements OnInit {
     });
   }
 
+  
+
   previousState(): void {
     window.history.back();
   }
 
-  save(): void {
+   save() : void  {
     this.isSaving = true;
     const note = this.noteFormService.getNote(this.editForm);
     if (note.id !== null) {
@@ -60,7 +67,11 @@ export class NoteUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.noteService.create(note));
     }
+    
   }
+
+  
+
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<INote>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({

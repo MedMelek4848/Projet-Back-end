@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center">
   <div class="col-8 border p-4">
-    <h2 id="jhi-matiere-heading" data-cy="MatiereCreateUpdateHeading" style="text-align: center; font-weight: bold;" >Create or edit a Matiere</h2>
+    <h2 id="jhi-matiere-heading" data-cy="MatiereCreateUpdateHeading" style="text-align: center; font-weight: bold; color: blue;font-family: Rockwell;"  >Créer ou modifier une matière</h2>
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
         <label class="form-label" for="field_id">ID</label>
@@ -28,11 +28,11 @@
     
       <div class="d-grid gap-2">
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary me-3" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span style="font-weight: bold;">Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span style="font-weight: bold;">Annuler</span>
         </button>
     
         <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-          <fa-icon icon="save"></fa-icon>&nbsp;<span style="font-weight: bold;">Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span style="font-weight: bold;">Enregistrer</span>
         </button>
       </div>
     </form>

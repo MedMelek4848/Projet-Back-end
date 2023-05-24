@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -11,6 +11,7 @@ import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/conf
 import { EntityArrayResponseType, NoteService } from '../service/note.service';
 import { NoteDeleteDialogComponent } from '../delete/note-delete-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'jhi-note',
@@ -20,9 +21,16 @@ export class NoteComponent implements OnInit {
   notes?: INote[];
   isLoading = false;
 
+  predictionResult: string | undefined;
+
+
   predicate = 'id';
   ascending = true;
 
+  editForm: FormGroup;
+  notess: INote[] = []; 
+
+  
   itemsPerPage = ITEMS_PER_PAGE;
   links: { [key: string]: number } = {
     last: 0,
@@ -34,8 +42,15 @@ export class NoteComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     public router: Router,
     protected parseLinks: ParseLinks,
-    protected modalService: NgbModal
-  ) {}
+    protected modalService: NgbModal,
+    private formBuilder: FormBuilder,
+    private httpClient: HttpClient
+
+  ) {
+    this.editForm = this.formBuilder.group({
+      matricule: ['']
+    });
+  }
 
   reset(): void {
     this.page = 1;
@@ -73,6 +88,8 @@ export class NoteComponent implements OnInit {
   load(): void {
     this.loadFromBackendWithRouteInformations().subscribe({
       next: (res: EntityArrayResponseType) => {
+        this.notess = res.body ?? [];
+
         this.onResponseSuccess(res);
       },
     });
@@ -159,6 +176,39 @@ export class NoteComponent implements OnInit {
       return [];
     } else {
       return [predicate + ',' + ascendingQueryParam];
+    }
+  }
+  searchNotesByMatricule(): void {
+    const searchValue = this.editForm.get('matricule')?.value;
+    if (searchValue) {
+console.log("aff",searchValue)
+      this.notes = this.notess.filter(note => note.matriculeEleve?.matricule === searchValue);
+    console.log("afff",this.notes.length)
+    } else {
+      this.notes = this.notess;
+    }
+  }
+
+  predictRemarks(): void {
+    // Vérifiez si une note est sélectionnée
+    if (this.notes && this.notes.length > 0) {
+      // Obtenez la remarque de la première note (vous pouvez ajuster selon vos besoins)
+      const remarque = this.notes[0].remarque;
+  
+      // Envoyez une requête HTTP POST à l'URL de prédiction
+      this.httpClient.post<{ prediction: string }>('https://localhost:5000/api/authenticate/predict', { remarque }).subscribe({
+        next: (response) => {
+          // Obtenez le résultat de la prédiction à partir de la réponse
+          const prediction = response.prediction;
+  
+          // Mettez à jour le résultat de la prédiction
+          this.predictionResult = prediction;
+        },
+        error: (error) => {
+          // Gérez les erreurs de prédiction
+          console.error('Erreur de prédiction :', error);
+        }
+      });
     }
   }
 }

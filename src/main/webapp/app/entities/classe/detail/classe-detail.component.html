@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <div *ngIf="classe">
-      <h2 data-cy="classeDetailsHeading"><span>Classe</span></h2>
+      <h2 data-cy="classeDetailsHeading"><span  style="text-align: center; font-weight: bold; color: blue;font-family: Rockwell;">Classe</span></h2>
 
       <hr />
 
@@ -10,26 +10,26 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span>ID</span></dt>
+        <dt><span >ID</span></dt>
         <dd>
-          <span>{{ classe.id }}</span>
+          <span >{{ classe.id }}</span>
         </dd>
-        <dt><span>Nom Classe</span></dt>
+        <dt><span >Nom Classe</span></dt>
         <dd>
-          <span>{{ classe.nomClasse }}</span>
+          <span >{{ classe.nomClasse }}</span>
         </dd>
-        <dt><span>Nombre Eleves</span></dt>
+        <dt><span >Nombre Eleves</span></dt>
         <dd>
-          <span>{{ classe.nombreEleves }}</span>
+          <span >{{ classe.nombreEleves }}</span>
         </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span style="font-weight: bold;" >Retour</span>
       </button>
 
       <button type="button" [routerLink]="['/classe', classe.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span style="font-weight: bold;">Modifier</span>
       </button>
     </div>
   </div>

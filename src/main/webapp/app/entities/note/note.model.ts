@@ -7,6 +7,7 @@ export interface INote {
   remarque?: string | null;
   matriculeEleve?: Pick<IEleve, 'id' | 'matricule'> | null;
   nomExamen?: Pick<IExamen, 'id' | 'nomExamen'> | null;
+  prediction?: string; // Ajoutez cette ligne
 }
 
 export type NewNote = Omit<INote, 'id'> & { id: null };

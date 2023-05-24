@@ -27,8 +27,8 @@ export class PaiementComponent implements OnInit {
   predicate = 'id';
   ascending = true;
 
-    editForm: FormGroup;
-    paiementss: IPaiement[] = []; // Assurez-vous d'importer la classe Paiement depuis votre modèle de données
+  editForm: FormGroup;
+  paiementss: IPaiement[] = []; // Assurez-vous d'importer la classe Paiement depuis votre modèle de données
 
   itemsPerPage = ITEMS_PER_PAGE;
   links: { [key: string]: number } = {
@@ -208,8 +208,9 @@ export class PaiementComponent implements OnInit {
     const tableData: any[] = [];
     const headers = ['ID', 'Mode De Paiement', 'Numero Tranche', 'Type De Paiement', 'Montant Paye','matricule'];
     console.log(headers)
-doc.text('Recu de paiement',5,10)
-    // Ajouter les données des paiements au tableau de données
+    doc.text('                                              Recu de paiement                                         ',5,10)
+ 
+// Ajouter les données des paiements au tableau de données
     if (this.editForm.get('matricule')?.value !=""){
 
  
@@ -249,8 +250,13 @@ doc.text('Recu de paiement',5,10)
       ],
       body: tableData,
      
-    });    
-    doc.save('paiements.pdf');
-     }
+    });   
+      // Signature
+  const signatureX = 20;
+  const signatureY = doc.internal.pageSize.getHeight() - 20;
+  doc.text('Signature ..................... ', signatureX, signatureY);
+
+      doc.save('paiements.pdf');
+    }
   
 }

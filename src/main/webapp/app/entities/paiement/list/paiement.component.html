@@ -1,18 +1,18 @@
 <div>
-  <h2 id="page-heading" data-cy="PaiementHeading" class="d-flex justify-content-between align-items-center">
-    <span>Paiements</span>
+  <h2 id="page-heading" data-cy="PaiementHeading" class="d-flex justify-content-between align-items-center" style="text-align: center;font-family: Rockwell; font-weight: bold; color: blue;">
+    <span>Liste des paiements</span>
     <div class="d-flex">
       <form [formGroup]="editForm" (ngSubmit)="searchPaymentsByMatricule()" class="d-flex align-items-center">
         <div class="input-group">
           <input type="text" formControlName="matricule" class="form-control" placeholder="Rechercher par matricule">
-          <button type="submit" class="btn btn-primary ms-2">Rechercher</button>
+          <button type="submit" class="btn btn-primary ms-2"  style="font-weight: bold;">Rechercher</button>
         </div>
       </form>
 
       <div class="ms-2">
         <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
           <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-          <span>Refresh list</span>
+          <span style="font-weight: bold;">Actualiser la liste</span>
         </button>
 
         <button
@@ -22,7 +22,7 @@
           [routerLink]="['/paiement/new']"
         >
           <fa-icon icon="plus"></fa-icon>
-          <span>Create a new Paiement</span>
+          <span style="font-weight: bold;">Créer un nouveau paiement</span>
         </button>
       </div>
     </div>
@@ -35,7 +35,7 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="paiements?.length === 0">
-    <span>No Paiements found</span>
+    <span style="font-family: Rockwell;">Aucun paiement trouvé</span>
   </div>
   <div class="table-responsive table-entities" id="entities" *ngIf="paiements && paiements.length > 0">
 
@@ -110,7 +110,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
+                <span class="d-none d-md-inline" style="font-weight: bold;">Voir</span>
               </button>
 
               <button
@@ -120,12 +120,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
+                <span class="d-none d-md-inline"  style="font-weight: bold;">Modifier</span>
               </button>
 
               <button type="submit" (click)="delete(paiement)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
+                <span class="d-none d-md-inline" style="font-weight: bold;">Supprimer</span>
               </button>
             </div>
           </td>
@@ -133,9 +133,9 @@
       </tbody>
     </table>
     <div>
-      <button (click)="generatePDF()" class="btn btn-primary">Générer PDF</button>
+      <button (click)="generatePDF()" class="btn btn-primary" style="font-weight: bold;">Reçu</button>
 
-      <h3>Montant payé total : {{ calculateTotalAmountPaid() }}</h3>
+      <h3 style="font-family: Rockwell;">Montant payé total : {{ calculateTotalAmountPaid() }}</h3>
     </div>
     </div>
   </div>

@@ -15,11 +15,12 @@ export type EntityArrayResponseType = HttpResponse<IMatiere[]>;
 @Injectable({ providedIn: 'root' })
 export class MatiereService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/matieres');
-
+  
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(matiere: NewMatiere): Observable<EntityResponseType> {
-    return this.http.post<IMatiere>(this.resourceUrl, matiere, { observe: 'response' });
+        return this.http.post<IMatiere>(this.resourceUrl, matiere, { observe: 'response' });
+
   }
 
   update(matiere: IMatiere): Observable<EntityResponseType> {

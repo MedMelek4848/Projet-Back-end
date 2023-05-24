@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm" class="border p-3">
-      <h2 id="jhi-paiement-heading" data-cy="PaiementCreateUpdateHeading" style="text-align: center; font-weight: bold;">Create or edit a Paiement</h2>
+      <h2 id="jhi-paiement-heading" data-cy="PaiementCreateUpdateHeading"  style="text-align: center; font-weight: bold; color: blue;font-family: Rockwell;" >Créer ou modifier un Paiement</h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
@@ -82,7 +82,7 @@
 
       <div class="d-grid gap-2">
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span style="font-weight: bold;">Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span style="font-weight: bold;">Annuler</span>
         </button>
 
         <button
@@ -92,7 +92,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span style="font-weight: bold;">Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span style="font-weight: bold;">Enregistrer</span>
         </button>
       </div>
     </form>

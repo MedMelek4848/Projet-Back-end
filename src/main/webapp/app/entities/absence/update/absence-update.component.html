@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <div class="border p-4">
-      <h2 style="text-align: center; font-weight: bold;" id="jhi-absence-heading" data-cy="AbsenceCreateUpdateHeading">Create or edit an Absence</h2>
+      <h2 style="text-align: center; font-weight: bold; color: blue;font-family: Rockwell;"id="jhi-absence-heading" data-cy="AbsenceCreateUpdateHeading">Créer ou modifier une absence</h2>
 
       <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
         <div class="mb-3 row">
@@ -101,7 +101,7 @@
 
       <div class="d-grid gap-2">
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span style="font-weight: bold;">Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span style="font-weight: bold;">Annuler</span>
         </button>
 
         <button
@@ -111,7 +111,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span style="font-weight: bold;">Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span style="font-weight: bold;">Enregistrer</span>
         </button>
       </div>
     </form>

@@ -1,11 +1,11 @@
 <div>
-  <h2 id="page-heading" data-cy="MatiereHeading">
-    <span>Matieres</span>
+  <h2 id="page-heading" data-cy="MatiereHeading" style="text-align: center;font-family: Rockwell; font-weight: bold; color: blue;">
+    <span>Liste des Matieres</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh list</span>
+        <span style="font-weight: bold;">Actualiser la liste</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/matiere/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Matiere </span>
+        <span style="font-weight: bold;">Créer une nouvelle matière</span>
       </button>
     </div>
   </h2>
@@ -25,7 +25,7 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="matieres?.length === 0">
-    <span>No Matieres found</span>
+    <span style="font-family: Rockwell;">Aucune matière trouvée</span>
   </div>
 
   <div class="table-responsive table-entities" id="entities" *ngIf="matieres && matieres.length > 0">
@@ -88,7 +88,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
+                <span class="d-none d-md-inline" style="font-weight: bold;">Voir</span>
               </button>
 
               <button
@@ -98,12 +98,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
+                <span class="d-none d-md-inline" style="font-weight: bold;">Modifier</span>
               </button>
 
               <button type="submit" (click)="delete(matiere)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
+                <span class="d-none d-md-inline" style="font-weight: bold;">Supprimer</span>
               </button>
             </div>
           </td>
